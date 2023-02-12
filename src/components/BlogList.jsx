@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Col, Row } from "react-bootstrap";
 
-const BlogItem = React.lazy(() => "./BlogItem");
+const BlogItem = React.lazy(() => import("./BlogItem"));
 
 const BlogList = (props) => {
   const { list } = props;
@@ -12,13 +12,15 @@ const BlogList = (props) => {
   const goToDetail = (id) => navigate(`/blogs/${id}`);
   return (
     <Row>
-      {list.map((item) => {
-        return (
-          <Col key={item.id}>
-            <BlogItem goDetail={() => goToDetail(item.id)} {...item} />
-          </Col>
-        );
-      })}
+      <Suspense fallback={<div>Loading Blog Item...</div>}>
+        {list.map((item) => {
+          return (
+            <Col key={item.id}>
+              <BlogItem goDetail={() => goToDetail(item.id)} {...item} />
+            </Col>
+          );
+        })}
+      </Suspense>
     </Row>
   );
 };

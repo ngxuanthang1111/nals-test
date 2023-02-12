@@ -85,40 +85,42 @@ const Blogs = () => {
 
   return (
     <Container>
-      <Row style={{ marginBottom: "1rem" }}>
-        <h1>Filter Blog</h1>
-        <Col>
-          <Row>
-            <Col>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control
-                  type="text"
-                  value={search}
-                  onChange={(e) => dispatch(setSearch(e.target.value))}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={1}>
-              <Button onClick={onSearchBlog}>Search</Button>
-            </Col>
-            <Col md={2}>
-              <Button onClick={onSortOrder}>Order By Id</Button>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-      <Row className="justify-content-md-center">
-        {isLoading ? <Spinner animation="border" variant="primary" /> : <BlogList list={blogs} />}
-      </Row>
-      <Row className="justify-content-md-center" style={{ marginTop: "2r  em" }}>
-        <Col xs lg="4">
-          <Pagination>
-            <Pagination.Prev onClick={() => onNextPrevPage("prev")} />
-            {renderPageItem()}
-            <Pagination.Next onClick={() => onNextPrevPage("next")} />
-          </Pagination>
-        </Col>
-      </Row>
+      <Suspense fallback={<div>Loading Blog List...</div>}>
+        <Row style={{ marginBottom: "1rem" }}>
+          <h1>Filter Blog</h1>
+          <Col>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Control
+                    type="text"
+                    value={search}
+                    onChange={(e) => dispatch(setSearch(e.target.value))}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={1}>
+                <Button onClick={onSearchBlog}>Search</Button>
+              </Col>
+              <Col md={2}>
+                <Button onClick={onSortOrder}>Order By Id</Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          {isLoading ? <Spinner animation="border" variant="primary" /> : <BlogList list={blogs} />}
+        </Row>
+        <Row className="justify-content-md-center" style={{ marginTop: "2r  em" }}>
+          <Col xs lg="4">
+            <Pagination>
+              <Pagination.Prev onClick={() => onNextPrevPage("prev")} />
+              {renderPageItem()}
+              <Pagination.Next onClick={() => onNextPrevPage("next")} />
+            </Pagination>
+          </Col>
+        </Row>
+      </Suspense>
     </Container>
   );
 };
