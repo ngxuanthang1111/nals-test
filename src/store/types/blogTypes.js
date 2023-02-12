@@ -1,0 +1,4 @@
+const GET_LIST = "BLOG_GET_LIST";
+const GET_DETAIL = "BLOG_GET_DETAIL";
+
+export { GET_LIST, GET_DETAIL };
