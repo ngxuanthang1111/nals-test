@@ -2,7 +2,7 @@ import React, { useEffect, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Spinner, Button, Col, Form, Pagination } from "react-bootstrap";
 import qs from "query-string";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   getList,
   nextPage,
@@ -16,6 +16,7 @@ const BlogList = React.lazy(() => import("../../components/BlogList"));
 
 const Blogs = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const blogs = useSelector((state) => state.blog.blogs);
   const query = useSelector((state) => state.blog.query);
@@ -57,6 +58,10 @@ const Blogs = () => {
     dispatch(setOrder(order.get(query.order)));
     dispatch(getList(paramsSearch));
     setSearchParams(qs.stringify(paramsSearch));
+  };
+
+  const goToCreateBlog = () => {
+    navigate("/blogs/create");
   };
 
   const renderPageItem = () => {
@@ -104,6 +109,9 @@ const Blogs = () => {
               </Col>
               <Col md={2}>
                 <Button onClick={onSortOrder}>Order By Id</Button>
+              </Col>
+              <Col md={2}>
+                <Button onClick={goToCreateBlog}>Create Blog</Button>
               </Col>
             </Row>
           </Col>

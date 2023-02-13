@@ -10,13 +10,18 @@ const BlogList = (props) => {
   const navigate = useNavigate();
 
   const goToDetail = (id) => navigate(`/blogs/${id}`);
+  const goToEdit = (id) => navigate(`/blogs/${id}/edit`);
   return (
     <Row>
       <Suspense fallback={<div>Loading Blog Item...</div>}>
         {list.map((item) => {
           return (
             <Col key={item.id}>
-              <BlogItem goDetail={() => goToDetail(item.id)} {...item} />
+              <BlogItem
+                goDetail={() => goToDetail(item.id)}
+                goEdit={() => goToEdit(item.id)}
+                {...item}
+              />
             </Col>
           );
         })}

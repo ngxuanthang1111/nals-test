@@ -1,5 +1,6 @@
 import React from "react";
 import Blogs from "../pages/Blog/Index";
+import BlogCreateEdit from "../pages/Blog/CreateEdit";
 import BlogDetail from "../pages/Blog/Detail";
 
 const routes = [
@@ -12,6 +13,16 @@ const routes = [
     path: "/blogs/:blogId",
     exact: true,
     element: BlogDetail,
+  },
+  {
+    path: "/blogs/create",
+    exact: true,
+    element: BlogCreateEdit,
+  },
+  {
+    path: "/blogs/:blogId/edit",
+    exact: true,
+    element: BlogCreateEdit,
   },
   {
     path: "*",

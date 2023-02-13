@@ -52,5 +52,6 @@ module.exports = {
     "no-param-reassign": "off",
     "react/require-default-props": "off",
     "no-unused-vars": "warn",
+    "jsx-a11y/label-has-associated-control": "warn",
   },
 };
